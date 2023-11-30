@@ -1,0 +1,34 @@
+# See the documentation for more information:
+# https://packit.dev/docs/configuration/
+
+specfile_path: fedora-messaging-git-hook-messages.spec
+issue_repository: https://github.com/fedora-infra/fedora-messaging-hook-messages
+
+# name in upstream package repository or registry (e.g. in PyPI)
+upstream_package_name: fedora-messaging-git-hook-messages
+# upstream_tag_template: v{version}
+
+actions:
+  create-archive:
+    - "python3 setup.py sdist"
+    - "sh -c 'echo dist/fedora-messaging-git-hook-messages-$(python3 setup.py --version).tar.gz'"
+  get-current-version:
+    # fetch the version number of the package
+    - "python3 setup.py --version"
+  post-upstream-clone:
+    - "python3 setuptools-template.py fedora-messaging-git-hook-messages.spec.in -o fedora-messaging-git-hook-messages.spec"
+
+jobs:
+  # upon upstream releases, perform COPR builds
+  - job: copr_build
+    trigger: release
+    metadata:
+      owner: abompard
+      project: fedora-messaging-git-hook
+
+  # upon upstream releases, test builds
+  - job: tests
+    trigger: release
+    metadata:
+      owner: abompard
+      project: fedora-messaging-git-hook
