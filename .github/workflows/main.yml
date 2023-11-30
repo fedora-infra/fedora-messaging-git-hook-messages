@@ -1,8 +1,4 @@
-# SPDX-FileCopyrightText: Contributors to the Fedora Project
-#
-# SPDX-License-Identifier: LGPL-3.0-or-later
 ---
-
 name: Test & Build
 on: [push, pull_request]
 jobs:
@@ -22,7 +18,7 @@ jobs:
 
       - name: Install base Python dependencies
         run: |
-          python3 -m pip install --upgrade tox poetry
+          python3 -m pip install --upgrade tox
 
       - name: execute tox
         run: tox
@@ -57,7 +53,8 @@ jobs:
 
   publish-to-pypi:
     name: Publish to PyPI 🚀
-    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'rc')  # only publish to PyPI on final tag pushes
+    # only publish to PyPI on final tag pushes
+    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'rc')
     needs:
       - build
     runs-on: ubuntu-latest

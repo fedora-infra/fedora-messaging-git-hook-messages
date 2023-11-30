@@ -1,6 +1,6 @@
 # Fedora Messaging Git Hook messages
 
-A schema package for [Fedora Messaging Git Hook](http://github.com/fedora-infra/fedora-messaging-git-hook-messages).
+A schema package for [Fedora Messaging Git Hook](http://github.com/fedora-infra/fedora-messaging-git-hook).
 
 See the [detailed documentation](https://fedora-messaging.readthedocs.io/en/latest/messages.html) on packaging your schemas.
 

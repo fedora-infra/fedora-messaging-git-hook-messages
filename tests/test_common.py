@@ -4,23 +4,19 @@
 
 """Unit tests for common properties of the message schemas."""
 
-from fedora_messaging_git_hook_messages.thing import NewThingV1
-from .utils import DUMMY_THING
+from fedora_messaging_git_hook_messages.commit import CommitV1
 
 
-def test_properties():
+def test_properties(dummy_commit):
     """Assert some properties are correct."""
     body = {
         "agent": "dummy-user",
-        "thing": DUMMY_THING,
+        "commit": dummy_commit,
     }
-    message = NewThingV1(body=body)
+    message = CommitV1(body=body)
 
-    assert message.app_name == "Fedora Messaging Git Hook"
-    assert (
-        message.app_icon
-        == "https://apps.fedoraproject.org/img/icons/fedora-messaging-git-hook.png"
-    )
+    assert message.app_name == "Git"
+    assert message.app_icon == "https://apps.fedoraproject.org/img/icons/git-logo.png"
     assert message.agent_name == "dummy-user"
     assert message.agent_avatar == (
         "https://seccdn.libravatar.org/avatar/"

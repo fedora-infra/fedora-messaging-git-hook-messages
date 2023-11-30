@@ -1,45 +1,6 @@
-# SPDX-FileCopyrightText: 2023 Contributors to the Fedora Project
-#
-# SPDX-License-Identifier: LGPL-3.0-or-later
-
-[tool.poetry]
-name = "fedora-messaging-git-hook-messages"
-version = "1.0.0"
-description = "A schema package for messages sent by Fedora Messaging Git Hook"
-authors = ["Fedora Infrastructure Team <infrastructure@lists.fedoraproject.org>"]
-license = "LGPL-3.0-or-later"
-readme = "README.md"
-homepage = "http://github.com/fedora-infra/fedora-messaging-git-hook-messages"
-repository = "http://github.com/fedora-infra/fedora-messaging-git-hook-messages"
-keywords = ["fedora-messaging"]
-classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: System Administrators",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Operating System :: POSIX :: Linux",
-    "Topic :: Communications",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
-
-[tool.poetry.dependencies]
-python = "^3.8"
-fedora-messaging = "^3.3.0"
-coverage = {extras = ["toml"], version = ">=7.0.0"}
-
-[tool.poetry.dev-dependencies]
-poetry = ">=1.2.0b2"
-black = ">=22.6.0"
-pytest = ">=7.0.0"
-pytest-cov = ">=3.0.0"
-ruff = ">=0.0.253"
-reuse = ">=1.1.0"
-
-[tool.poetry.plugins."fedora.messages"]
-"fedora_messaging_git_hook.new" = "fedora_messaging_git_hook_messages.thing:NewThingV1"
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [tool.black]
 line-length = 100
@@ -47,18 +8,19 @@ line-length = 100
 [tool.ruff]
 select = ["E", "F", "W", "I", "UP", "S", "B", "RUF"]
 line-length = 100
-target-version = "py38"
-# ignore = ["RUF010", "UP038"]
+ignore = ["RUF012"]
 
 [tool.ruff.per-file-ignores]
-"tests/*" = ["S101"]
-"fedora_messaging_git_hook_messages/__init__.py" = ["F401"]
+"tests/*" = ["S101", "S108"]
 
 [tool.coverage.run]
 branch = true
 source = [
     "fedora_messaging_git_hook_messages",
 ]
+
+[tool.coverage.paths]
+source = ["fedora_messaging_git_hook_messages"]
 
 [tool.coverage.report]
 fail_under = 100
@@ -68,11 +30,9 @@ exclude_lines = [
     "def __repr__",
     "if TYPE_CHECKING:",
     "raise NotImplementedError",
+    "\\.\\.\\.",
 ]
 omit = [
+    "fedora_messaging_git_hook_messages/__init__.py",
     "tests/*",
 ]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"

@@ -4,19 +4,7 @@
 
 from fedora_messaging import message
 
-
 SCHEMA_URL = "http://fedoraproject.org/message-schema/"
-
-THING_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "id": {"type": "number"},
-        "name": {"type": "string"},
-        "foobar": {"type": ["string", "null"]},
-        "url": {"type": "string", "format": "uri"},
-    },
-    "required": ["id", "name"],
-}
 
 
 class FedoraMessagingGitHookMessage(message.Message):
@@ -27,18 +15,15 @@ class FedoraMessagingGitHookMessage(message.Message):
 
     @property
     def app_name(self):
-        return "Fedora Messaging Git Hook"
+        return "Git"
 
     @property
     def app_icon(self):
-        return "https://apps.fedoraproject.org/img/icons/fedora-messaging-git-hook.png"
+        return "https://apps.fedoraproject.org/img/icons/git-logo.png"
 
-    @property
-    def url(self):
-        try:
-            return self.body["thing"]["url"]
-        except KeyError:
-            return None
+    # @property
+    # def url(self):
+    #     return None
 
     @property
     def agent_name(self):
@@ -56,22 +41,28 @@ class FedoraMessagingGitHookMessage(message.Message):
         group = self.body.get("group")
         return [group] if group else []
 
+    def _repo_if_namespace(self, namespace):
+        """List of packages affected by the action that generated this message."""
+        if self.body["commit"].get("namespace") == namespace:
+            return [self.body["commit"]["repo"]]
+        return []
+
     @property
     def packages(self):
         """List of packages affected by the action that generated this message."""
-        return []
+        return self._repo_if_namespace("rpms")
 
     @property
     def containers(self):
         """List of containers affected by the action that generated this message."""
-        return []
+        return self._repo_if_namespace("container")
 
     @property
     def modules(self):
         """List of modules affected by the action that generated this message."""
-        return []
+        return self._repo_if_namespace("modules")
 
     @property
     def flatpaks(self):
         """List of flatpaks affected by the action that generated this message."""
-        return []
+        return self._repo_if_namespace("flatpaks")

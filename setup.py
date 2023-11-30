@@ -2,10 +2,6 @@
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-"""Utilities for the unit tests."""
+from setuptools import setup
 
-
-DUMMY_THING = {
-    "id": 1,
-    "name": "dummy",
-}
+setup()
