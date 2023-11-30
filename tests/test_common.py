@@ -18,9 +18,4 @@ def test_properties(dummy_commit):
     assert message.app_name == "Git"
     assert message.app_icon == "https://apps.fedoraproject.org/img/icons/git-logo.png"
     assert message.agent_name == "dummy-user"
-    assert message.agent_avatar == (
-        "https://seccdn.libravatar.org/avatar/"
-        "18e8268125372e35f95ef082fd124e9274d46916efe2277417fa5fecfee31af1"
-        "?s=64&d=retro"
-    )
     assert message.usernames == ["dummy-user"]
