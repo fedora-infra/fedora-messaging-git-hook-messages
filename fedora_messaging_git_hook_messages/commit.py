@@ -57,9 +57,7 @@ COMMIT_SCHEMA = {
 STR_TEMPLATE = """From {hash} Mon Sep 17 00:00:00 2001
 From: {author_name} <{author_email}>
 Date: {date}
-Subject: {summary}
-
-{content}
+Subject: {content}
 ---
 
 {patch}
