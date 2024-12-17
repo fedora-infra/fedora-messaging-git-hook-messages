@@ -19,3 +19,8 @@ def test_properties(dummy_commit):
     assert message.app_icon == "https://apps.fedoraproject.org/img/icons/git-logo.png"
     assert message.agent_name == "dummy-user"
     assert message.usernames == ["dummy-user"]
+
+
+def test_properties_not_commit():
+    message = CommitV1(body={})
+    assert message.packages == []

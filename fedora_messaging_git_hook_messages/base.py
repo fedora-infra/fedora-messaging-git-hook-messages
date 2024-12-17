@@ -43,7 +43,7 @@ class FedoraMessagingGitHookMessage(message.Message):
 
     def _repo_if_namespace(self, namespace):
         """List of packages affected by the action that generated this message."""
-        if self.body["commit"].get("namespace") == namespace:
+        if self.body.get("commit", {}).get("namespace") == namespace:
             return [self.body["commit"]["repo"]]
         return []
 
