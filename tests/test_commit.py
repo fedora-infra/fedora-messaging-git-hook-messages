@@ -62,8 +62,6 @@ From: Dummy User <dummy@example.com>
 Date: 2023-11-30T10:42:31+01:00
 Subject: second commit
 
-second commit
-
 ---
 
 diff --git a/something.txt b/something.txt
