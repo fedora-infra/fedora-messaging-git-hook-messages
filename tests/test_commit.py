@@ -4,7 +4,6 @@
 
 """Unit tests for the message schema."""
 
-
 import pytest
 from jsonschema import ValidationError
 
